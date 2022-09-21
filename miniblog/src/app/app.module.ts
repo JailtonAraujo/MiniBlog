@@ -10,6 +10,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { PostComponent } from './components/post/post.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CadastrarComponent } from './pages/cadastrar/cadastrar.component';
 
 @NgModule({
   declarations: [
@@ -20,11 +22,13 @@ import { NotfoundComponent } from './pages/notfound/notfound.component';
     HeaderComponent,
     FooterComponent,
     PostComponent,
-    NotfoundComponent
+    NotfoundComponent,
+    CadastrarComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
