@@ -1,0 +1,6 @@
+<div class="content-message" *ngIf="messageService.message">
+<div [classList]="'alert '+messageService.statusClass+' message'" role="alert" >
+    <div><strong>Aviso do sistema: </strong>{{messageService.message}}</div>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+</div>

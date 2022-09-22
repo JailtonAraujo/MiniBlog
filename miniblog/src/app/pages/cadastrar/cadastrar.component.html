@@ -1,27 +1,32 @@
 <div class="container">
+    <div class="title">
+        <h1>Cadastre-se</h1>
+        <p>Cadastre-se para começar a postar</p>
+    </div>
     <div class="content-form">
-        <form class="form-cad">
+        <form class="form-cad" [formGroup]="formUSer" #formUser="ngForm">
             <div class="form-group">
                 <label for="name">Nome:</label>
-                <input type="text" name="name" placeholder="Informe seu nome...">
+                <input type="text" name="name" placeholder="Informe seu nome..." formControlName="name" required="on">
             </div>
 
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input type="email" name="email" placeholder="Informe seu email...">
+                <input type="email" name="email" placeholder="Informe seu email..." formControlName="email" required="on">
             </div>
 
             <div class="form-group">
                 <label for="password">Senha:</label>
-                <input type="password" name="password" id="password" placeholder="Digite uma senha">
+                <input type="password" name="password" id="password" placeholder="Digite uma senha" formControlName="password" required="on">
             </div>
 
             <div class="form-group">
                 <label for="password-confirm">Confirmação de senha:</label>
-                <input type="password" name="confirm-password" placeholder="Confirme sua senha...">
+                <input type="password" name="confirm-password" placeholder="Confirme sua senha..." formControlName="password_confirm" required="on">
             </div>
 
-            <button type="submit">Cadastrar</button>
+            <button type="submit" (click)="submitedForm()" [disabled]="formUser.invalid" *ngIf="!loading">Cadastrar</button>
+            <button type="submit" disabled *ngIf="loading" >Aguarde...</button>
         </form>
     </div>
 </div>

@@ -1,0 +1,26 @@
+<div class="content-form">
+    <form class="form-cad" [formGroup]="postForm" (submit)="submit()" #formDir="ngForm">
+        <div class="form-group">
+            <label for="title">Título:</label>
+            <input type="text" name="title" placeholder="Dê um titulo para seu post..." formControlName="title" required="on">
+        </div>
+
+        <div class="form-group">
+            <label for="urlimage">URL da imagem:</label>
+            <input type="text" name="urlimage" placeholder="Adicione a URL da sua imagem..." formControlName="url" required="on">
+        </div>
+
+        <div class="form-group">
+            <label for="body"> Assunto:</label>
+            <textarea name="body" id=""body cols="30" rows="2" placeholder="Fale sobre seu post..." formControlName="body"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="tags">Tags:</label>
+            <input type="text" name="tags" placeholder="Coloque as tags separadas por virgula..." formControlName="tags" required="on">
+        </div>
+
+        <button type="submit" *ngIf="loading == false" [disabled]="formDir.invalid">{{textBtn}}</button>
+        <button type="submit" *ngIf="loading" disabled>Aguarde...</button>
+    </form>
+</div>

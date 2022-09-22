@@ -8,10 +8,25 @@ import { AboutComponent } from './pages/about/about.component';
 import { HomeComponent } from './pages/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { PostComponent } from './components/post/post.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CadastrarComponent } from './pages/cadastrar/cadastrar.component';
+import { PostModuleModule } from './components/post-module/post-module.module';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+
+import { environment } from 'src/environments/environment.prod';
+
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+
+import { FlashMessageComponent } from './components/flash-message/flash-message.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -21,14 +36,23 @@ import { CadastrarComponent } from './pages/cadastrar/cadastrar.component';
     HomeComponent,
     HeaderComponent,
     FooterComponent,
-    PostComponent,
     NotfoundComponent,
-    CadastrarComponent
+    CadastrarComponent,
+    FlashMessageComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    AngularFireModule.initializeApp(environment.firebase),
+    BrowserAnimationsModule,
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    AngularFireDatabaseModule,
+    AngularFireStorageModule,
+    FormsModule,
+    ReactiveFormsModule,
+    PostModuleModule
   ],
   providers: [],
   bootstrap: [AppComponent]

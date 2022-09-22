@@ -12,8 +12,14 @@
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" routerLink="home" routerLinkActive="activated">Home</a>
                     </li>
-                    <li class="nav-item" ><a class="nav-link" routerLink="login" routerLinkActive="activated">Entrar</a></li>
-                    <li class="nav-item" ><a class="nav-link" routerLink="cadastrar" routerLinkActive="activated">Cadastrar</a></li>
+                    <li class="nav-item" *ngIf="!userLogado"><a class="nav-link" routerLink="login" routerLinkActive="activated">Entrar</a></li>
+                    <li class="nav-item" *ngIf="userLogado" ><button class="nav-link" (click)="Logout()">Sair</button></li>
+
+                    <li class="nav-item" *ngIf="!userLogado"><a class="nav-link" routerLink="cadastrar" routerLinkActive="activated" >Cadastrar</a></li>
+                    <li class="nav-item" *ngIf="userLogado"><a class="nav-link" routerLink="dashboard" routerLinkActive="activated" >Dashboard</a></li>
+
+                    <li class="nav-item" ><a class="nav-link" routerLink="newpost" routerLinkActive="activated">Novo Post</a></li>
+
                     <li class="nav-item" ><a class="nav-link" routerLink="about" routerLinkActive="activated">Sobre</a></li>
 
                 </ul>

@@ -1,17 +1,22 @@
 <div class="container">
-    <div class="content-form">
-    <form class="form-login">
+    <div class="title">
+        <h1>Entrar</h1>
+        <p>Faça login para utilizar o sistema</p>
+    </div>
+    <div class="content-form" (submit)="logar()">
+    <form class="form-login" [formGroup]="loginForm" #formDir="ngForm">
         <div class="form-group">
             <label for="email">Email:</label>
-            <input type="email" name="email" id="email" placeholder="Informe seu email...">
+            <input type="email" name="email" id="email" placeholder="Informe seu email..." formControlName="email" required="on">
         </div>
 
         <div class="form-group">
             <label for="password">Senha:</label>
-            <input type="password" name="password" id="password" placeholder="Informe sua senha">
+            <input type="password" name="password" id="password" placeholder="Informe sua senha" formControlName="password" required="on">
         </div>
 
-        <button type="submit">ENTRAR</button>
+        <button type="submit" [disabled]="formDir.invalid" *ngIf="!loading">ENTRAR</button>
+        <button type="submit" disabled *ngIf="loading" >Aguarde...</button>
     </form>
 </div>
 </div>
