@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Post } from 'src/app/interfaces/post';
+import { MessageService } from 'src/app/services/message.service';
 import { PostService } from 'src/app/services/post.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -11,9 +12,11 @@ import { UserService } from 'src/app/services/user.service';
 export class NewPostComponent implements OnInit {
 
  post!:Post;
+ loading:Boolean = false;
 
   constructor(private userService:UserService,
-    private postService:PostService) { }
+    private postService:PostService,
+    private messageService:MessageService) { }
 
   ngOnInit(): void {
     
@@ -28,12 +31,18 @@ export class NewPostComponent implements OnInit {
 
       this.post = {...post, uid:auth.uid ,createdBy:auth.displayName, createdAt:new Date(), tags:tags}
 
+      this.loading = true;
+
       this.postService.insertPost(this.post)
       .then((result)=>{
-        console.log(result);
+        this.messageService.addMessage('alert-success','Post criado com sucesso!');
+        this.loading = false;
       }).catch((error)=>{
         console.log(error);
+        this.messageService.addMessage('alert-danger','Erro ao criar post, por favor revise as informações...');
+        this.loading = false;
       })
+      this.loading = false;
       
   }
 

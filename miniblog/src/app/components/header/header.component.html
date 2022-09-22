@@ -18,7 +18,7 @@
                     <li class="nav-item" *ngIf="!userLogado"><a class="nav-link" routerLink="cadastrar" routerLinkActive="activated" >Cadastrar</a></li>
                     <li class="nav-item" *ngIf="userLogado"><a class="nav-link" routerLink="dashboard" routerLinkActive="activated" >Dashboard</a></li>
 
-                    <li class="nav-item" ><a class="nav-link" routerLink="newpost" routerLinkActive="activated">Novo Post</a></li>
+                    <li class="nav-item" *ngIf="userLogado"><a class="nav-link" routerLink="newpost" routerLinkActive="activated">Novo Post</a></li>
 
                     <li class="nav-item" ><a class="nav-link" routerLink="about" routerLinkActive="activated">Sobre</a></li>
 
