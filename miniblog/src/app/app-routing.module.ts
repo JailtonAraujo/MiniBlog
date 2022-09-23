@@ -15,8 +15,8 @@ const routes: Routes = [
   {path:'about', component: AboutComponent},
   {path:'cadastrar', component: CadastrarComponent},
   {path:'dashboard', component: DashboardComponent},
-  {path:'newpost', component: NewPostComponent},
-  {path:'editpost', component: EditPostComponent},
+  {path:'post/newpost', component: NewPostComponent},
+  {path:'post/editpost/:id', component: EditPostComponent},
   {path:'**', component:NotfoundComponent}
 ];
 

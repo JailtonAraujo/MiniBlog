@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs';
 import { Post } from 'src/app/interfaces/post';
+import { PostService } from 'src/app/services/post.service';
 
 
 @Component({
@@ -15,21 +17,25 @@ export class PostFormComponent implements OnInit {
 
   @Output() onSubmit = new EventEmitter<Post>();
   @Input() textBtn = "";
-  @Input() loading:Boolean = false;
 
-  constructor() { }
+  constructor(private postService:PostService) { }
 
   ngOnInit(): void {
+
     this.postForm = new FormGroup({
       title :new FormControl(this.post ? this.post.title : '', [Validators.required]),
       url :new FormControl(this.post ? this.post.url : '', [Validators.required]),
       body:new FormControl(this.post ? this.post.body : ''),
       tags: new FormControl('', [Validators.required]) 
     })
+
   }
 
   public submit(){
+  
     this.onSubmit.emit(this.postForm.value);
+    this.postForm.reset();
+  
   }
 
 }

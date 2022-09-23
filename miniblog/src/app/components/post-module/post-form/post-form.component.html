@@ -20,7 +20,7 @@
             <input type="text" name="tags" placeholder="Coloque as tags separadas por virgula..." formControlName="tags" required="on">
         </div>
 
-        <button type="submit" *ngIf="loading == false" [disabled]="formDir.invalid">{{textBtn}}</button>
-        <button type="submit" *ngIf="loading" disabled>Aguarde...</button>
+        <button type="submit"  [disabled]="formDir.invalid">{{textBtn}}</button>
+        
     </form>
 </div>

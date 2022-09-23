@@ -1,20 +1,19 @@
 <div class="container">
     <h1 class="title">Veja os posts mais recentes...</h1>
     <div class="search">
-        <form class="form-search">
-            <input type="text" name="search" id="search" placeholder="Busque um post...">
+        <form class="form-search" (submit)="search()">
+            <input type="text" name="search" id="search" placeholder="Busque por tags..." [(ngModel)]="searchName.name">
             <button type="submit">Pesquisar</button>
         </form>
     </div>
 
     <div class="content-posts">
-        <div class="post">
-            <img src="https://images.unsplash.com/photo-1663183538127-82173c57b25e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" alt="img">
-            <h2>Lagoa</h2>
-            <i class="por">por: jailton</i>
+        <div class="post" *ngFor="let element of posts">
+            <img [src]="element.url" alt="img">
+            <h2>{{element.title}}</h2>
+            <i class="createdBy">Por: {{element.createdBy}}</i>
             <ul class="tags">
-                <li><b>#</b>momento</li>
-                <li><b>#</b>momento</li>
+                <li *ngFor="let tag of element.tags"><b>#</b>{{tag}}</li>
             </ul>
             <button type="button">Ler</button>
         </div>

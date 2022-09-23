@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { Post } from '../interfaces/post';
 
 @Injectable({
@@ -7,16 +8,39 @@ import { Post } from '../interfaces/post';
 })
 export class PostService {
 
+  
+
   constructor(private fireStorage:AngularFirestore) { }
 
   public insertPost(post:Post){
-    return this.fireStorage.collection('posts').add(post);
+    return this.fireStorage.collection<Post>('posts').add(post);
   }
 
-  public selectAll(uid:String){
+  public selectAllPost(){
+    return this.fireStorage.collection('posts', ref =>{
+     return ref.limit(5)
+    }).valueChanges();
+   }
+
+  public selectAllPostsByUid(uid:String){
    return this.fireStorage.collection('posts', ref =>{
     return ref.where('uid','==',uid)
-   }).valueChanges();
+   }).snapshotChanges().pipe(map(actions => actions.map(a =>{
+    const data = a.payload.doc.data() as Post;
+    const id = a.payload.doc.id;
+    return {id:id, ...data}
+   })))
   }
+
+  public findPostByTag(tag:String){
+    return this.fireStorage.collection('posts', ref =>{
+      return ref.where('tags','array-contains',tag)
+    }).valueChanges();
+  }
+
+ public deletePost(id:string){
+    return this.fireStorage.doc(`posts/${id}`).delete();
+    
+ }
 
 }
