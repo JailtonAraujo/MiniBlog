@@ -7,7 +7,7 @@
         </form>
     </div>
 
-    <div class="content-posts">
+    <div class="content-posts" *ngIf="posts">
         <div class="post" *ngFor="let element of posts">
             <img [src]="element.url" alt="img">
             <h2>{{element.title}}</h2>
@@ -15,7 +15,7 @@
             <ul class="tags">
                 <li *ngFor="let tag of element.tags"><b>#</b>{{tag}}</li>
             </ul>
-            <button type="button">Ler</button>
+            <button type="button" (click)="readPost(element.id)">Ler</button>
         </div>
         
     </div>

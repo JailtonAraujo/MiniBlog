@@ -15,6 +15,7 @@ export class NewPostComponent implements OnInit {
 
  post!:Post;
  user:any;
+ loading:Boolean = false;
 
   constructor(private userService:UserService,
     private postService:PostService,
@@ -22,9 +23,7 @@ export class NewPostComponent implements OnInit {
     private auth:AngularFireAuth) { }
 
   ngOnInit(): void {
-    this.auth.authState.subscribe((user)=>{
-      this.user = user;
-    })
+   this.user = this.userService.getUserLogado();
   }
 
   handlerPost(post:Post){
@@ -32,17 +31,18 @@ export class NewPostComponent implements OnInit {
 
       this.post = {...post, uid:this.user.uid ,createdBy:this.user.displayName, createdAt:new Date(), tags:tags}
 
-      
+      this.loading = true;
       this.postService.insertPost(this.post)
       .then((result)=>{
         this.messageService.addMessage('alert-success','Post criado com sucesso!');
+        this.loading = false;
        
       }).catch((error)=>{
         console.log(error);
         this.messageService.addMessage('alert-danger','Erro ao criar post, por favor revise as informações...');
-       
+        this.loading = false;
       })
-   
+      this.loading = false;
       
   }
 

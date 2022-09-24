@@ -19,7 +19,11 @@ export class PostService {
   public selectAllPost(){
     return this.fireStorage.collection('posts', ref =>{
      return ref.limit(5)
-    }).valueChanges();
+    }).snapshotChanges().pipe(map(actions => actions.map(a =>{
+      const data = a.payload.doc.data() as Array<any>
+      const id = a.payload.doc.id
+      return {id:id, ...data}
+    }) ))
    }
 
   public selectAllPostsByUid(uid:String){
@@ -39,8 +43,20 @@ export class PostService {
   }
 
  public deletePost(id:string){
-    return this.fireStorage.doc(`posts/${id}`).delete();
-    
+    return this.fireStorage.doc(`posts/${id}`).delete();  
+ }
+
+ public findPostById(id:string){
+    return this.fireStorage.doc(`posts/${id}`)
+    .snapshotChanges().pipe(map((actions)=>{
+      const data = actions.payload.data() as Post;
+      const id = actions.payload.id;
+      return {id:id, ...data}
+    }))
+ }
+
+ public update(post:Post){
+    return this.fireStorage.doc(`posts/${post.id}`).update(post);
  }
 
 }

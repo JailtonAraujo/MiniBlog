@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="title">
+        <h2 *ngIf="post">{{post.title}}</h2>
+    </div>
+    <div class="content-post">
+        <div class="post" *ngIf="post">
+            <img [src]="post.url" alt="post_image">
+            <p class="createdBy"> <i>por: {{post.createdBy}}</i> </p>
+            <p class="body">{{post.body}}</p>
+            <ul class="tags">
+                <li *ngFor="let tag of post.tags" >#{{tag}}</li>
+            </ul>
+            <button type="button" class="btn btn-info" (click)="router.navigate(['home'])">Voltar</button>
+        </div>
+       
+    </div>
+</div>

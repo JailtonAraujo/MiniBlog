@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit {
   }
 
   public Logout(){
-    //this.useService.RemoveUserInLocal();
+    this.useService.RemoveUserInLocal();
     this.auth.signOut();
     this.router.navigate(['/home']);
   }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Post } from 'src/app/interfaces/post';
 import { MessageService } from 'src/app/services/message.service';
 import { PostService } from 'src/app/services/post.service';
@@ -17,7 +18,8 @@ export class HomeComponent implements OnInit {
   }
 
   constructor(private postService: PostService,
-    private messageService:MessageService) { }
+    private messageService:MessageService,
+    public router:Router) { }
 
   ngOnInit(): void {
     this.postService.selectAllPost().subscribe((result) => {
@@ -39,6 +41,10 @@ export class HomeComponent implements OnInit {
         this.posts = result;
       })
     }
+  }
+
+  public readPost(id:string){
+    this.router.navigate([`post/read/${id}`])
   }
 
 }

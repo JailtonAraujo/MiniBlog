@@ -3,5 +3,5 @@
         <h1>Criar Post</h1>
         <p>Compartilhe oque quiser com os outros usuarios...</p>
     </div>
-    <app-post-form (onSubmit)="handlerPost($event)" [textBtn]="'Criar Post'" ></app-post-form>
+    <app-post-form (onSubmit)="handlerPost($event)" [textBtn]="'Criar Post'" [loading]="loading"></app-post-form>
 </div>

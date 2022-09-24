@@ -3,4 +3,7 @@
         <h2>Edição de post</h2>
         <p>Modifique seu post depois salve as alterações...</p>
     </div>
+    <div *ngIf="post">
+        <app-post-form [postData]="post" [textBtn]="textbtn" (onSubmit)="update($event)" [loading]="loading"></app-post-form>
+    </div>
 </div>

@@ -32,7 +32,12 @@ export class UserService {
   }
 
   public getUserLogado(){
-    return JSON.parse( String(localStorage.getItem('auth')));
+    if(localStorage.getItem('auth')){
+      return JSON.parse( String(localStorage.getItem('auth')));
+    }else{
+      return null;
+    }
+    
   }
 
 }

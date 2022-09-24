@@ -10,6 +10,11 @@
             <input type="text" name="urlimage" placeholder="Adicione a URL da sua imagem..." formControlName="url" required="on">
         </div>
 
+        <div class="preview-image" *ngIf="postData?.id">
+            <p>Preview da imagem atual</p>
+            <img [src]="postData.url" alt="">
+        </div>
+
         <div class="form-group">
             <label for="body"> Assunto:</label>
             <textarea name="body" id=""body cols="30" rows="2" placeholder="Fale sobre seu post..." formControlName="body"></textarea>
@@ -20,7 +25,8 @@
             <input type="text" name="tags" placeholder="Coloque as tags separadas por virgula..." formControlName="tags" required="on">
         </div>
 
-        <button type="submit"  [disabled]="formDir.invalid">{{textBtn}}</button>
+        <button type="submit"  [disabled]="formDir.invalid" *ngIf="loading==false">{{textBtn}}</button>
+        <button type="submit" *ngIf="loading" disabled>Aguarde...</button>
         
     </form>
 </div>
