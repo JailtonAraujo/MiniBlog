@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { Post } from '../interfaces/post';
+import { query, orderBy, startAt } from "firebase/firestore";
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +18,9 @@ export class PostService {
   }
 
   public selectAllPost(){
+
     return this.fireStorage.collection('posts', ref =>{
-     return ref.limit(5)
+     return ref.orderBy('createdAt','desc').limit(10)
     }).snapshotChanges().pipe(map(actions => actions.map(a =>{
       const data = a.payload.doc.data() as Array<any>
       const id = a.payload.doc.id

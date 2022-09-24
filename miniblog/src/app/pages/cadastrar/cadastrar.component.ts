@@ -24,7 +24,7 @@ export class CadastrarComponent implements OnInit {
     this.formUSer = new FormGroup({
       name: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
       password_confirm : new FormControl('', [Validators.required]) 
     })
   }
