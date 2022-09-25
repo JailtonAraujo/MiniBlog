@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { Post } from '../interfaces/post';
 import { query, orderBy, startAt } from "firebase/firestore";
+import { AngularFireDatabase } from '@angular/fire/compat/database';
 
 @Injectable({
   providedIn: 'root'
@@ -11,21 +12,31 @@ export class PostService {
 
   
 
-  constructor(private fireStorage:AngularFirestore) { }
+  constructor(private fireStorage:AngularFirestore, private db:AngularFireDatabase) { }
 
   public insertPost(post:Post){
     return this.fireStorage.collection<Post>('posts').add(post);
   }
 
   public selectAllPost(){
-
     return this.fireStorage.collection('posts', ref =>{
-     return ref.orderBy('createdAt','desc').limit(10)
+     return ref.orderBy('createdAt','desc').limit(5)
     }).snapshotChanges().pipe(map(actions => actions.map(a =>{
       const data = a.payload.doc.data() as Array<any>
       const id = a.payload.doc.id
       return {id:id, ...data}
     }) ))
+   }
+
+   public selectAllPostInfinitScrool(refPost:Post){
+    return this.fireStorage.collection('posts', ref =>{
+      return ref.orderBy('createdAt','desc').startAfter(refPost.createdAt).limit(2)
+    }).snapshotChanges().pipe(map(actions => actions.map(a => {
+      const data = a.payload.doc.data() as Post
+      const id = a.payload.doc.id
+      return {id:id,...data}
+    })))
+    
    }
 
   public selectAllPostsByUid(uid:String){

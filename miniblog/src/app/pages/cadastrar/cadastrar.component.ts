@@ -14,6 +14,7 @@ export class CadastrarComponent implements OnInit {
 
   formUSer!: FormGroup;
   loading:Boolean = false;
+  
 
   constructor(private messageService:MessageService,
     private userService:UserService,

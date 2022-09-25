@@ -11,6 +11,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { CadastrarComponent } from './pages/cadastrar/cadastrar.component';
 import { PostModuleModule } from './components/post-module/post-module.module';
+import { FlashMessageComponent } from './components/flash-message/flash-message.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -24,8 +26,10 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
-import { FlashMessageComponent } from './components/flash-message/flash-message.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
+
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+
+
 
 @NgModule({
   declarations: [
@@ -51,7 +55,8 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
     FormsModule,
     ReactiveFormsModule,
     PostModuleModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    InfiniteScrollModule
   ],
   providers: [],
   bootstrap: [AppComponent]

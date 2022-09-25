@@ -17,6 +17,9 @@ export class HomeComponent implements OnInit {
     name: ""
   }
 
+  loading:Boolean = false;
+  notResults:Boolean = false; 
+
   constructor(private postService: PostService,
     private messageService:MessageService,
     public router:Router) { }
@@ -45,6 +48,27 @@ export class HomeComponent implements OnInit {
 
   public readPost(id:string){
     this.router.navigate([`post/read/${id}`])
+  }
+
+  public onScroll(){
+    this.loading = true;
+    console.log(this.loading);
+    this.postService.selectAllPostInfinitScrool( this.posts[this.posts.length - 1])
+    .subscribe((result)=>{
+
+        if(result.length > 0){
+          this.posts = [...this.posts, ...result]
+          console.log(this.posts)
+        }else{
+          this.notResults = true;
+        }
+  
+        this.loading = false;
+  
+
+      
+    })
+    this.loading = false;
   }
 
 }

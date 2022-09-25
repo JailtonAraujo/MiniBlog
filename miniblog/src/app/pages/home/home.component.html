@@ -7,7 +7,12 @@
         </form>
     </div>
 
-    <div class="content-posts" *ngIf="posts">
+    <div class="content-posts" *ngIf="posts" 
+    infinite-scroll
+    [infiniteScrollDistance]="0"
+    [infiniteScrollThrottle]="50" 
+    (scrolled)="onScroll()"
+    >
         <div class="post" *ngFor="let element of posts">
             <img [src]="element.url" alt="img">
             <h2>{{element.title}}</h2>
@@ -15,7 +20,24 @@
             <ul class="tags">
                 <li *ngFor="let tag of element.tags"><b>#</b>{{tag}}</li>
             </ul>
-            <button type="button" (click)="readPost(element.id)">Ler</button>
+
+            <div class="collapse" [id]="element.id">
+                <div class="card card-body">
+                  {{element.body}}
+                </div>
+              </div>
+
+            <button type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#'+element.id" >Ler</button>
+
+        </div>
+
+        
+        <div class="spinner-border text-primary" role="status" *ngIf="loading">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+
+        <div class="not-more-posts" *ngIf="notResults">
+            <h3>Sem mais resultados...</h3>
         </div>
         
     </div>
