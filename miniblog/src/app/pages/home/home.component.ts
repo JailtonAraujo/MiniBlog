@@ -17,17 +17,18 @@ export class HomeComponent implements OnInit {
     name: ""
   }
 
-  loading:Boolean = false;
-  notResults:Boolean = false; 
+  notResults: Boolean = false;
 
   constructor(private postService: PostService,
-    private messageService:MessageService,
-    public router:Router) { }
+    private messageService: MessageService,
+    public router: Router) { }
 
   ngOnInit(): void {
     this.postService.selectAllPost().subscribe((result) => {
       this.posts = result;
     })
+
+
   }
 
   async search() {
@@ -35,40 +36,33 @@ export class HomeComponent implements OnInit {
     if (this.searchName.name) {
       await this.postService.findPostByTag(this.searchName.name).subscribe((result) => {
         this.posts = result;
-        if(result.length == 0){
-          this.messageService.addMessage('alert-danger',`Sem resultados para ${this.searchName.name.toUpperCase()}`);
+        if (result.length == 0) {
+          this.messageService.addMessage('alert-danger', `Sem resultados para ${this.searchName.name.toUpperCase()}`);
         }
       })
-    }else{
+    } else {
       this.postService.selectAllPost().subscribe((result) => {
         this.posts = result;
       })
     }
   }
 
-  public readPost(id:string){
-    this.router.navigate([`post/read/${id}`])
-  }
+  
 
-  public onScroll(){
-    this.loading = true;
-    console.log(this.loading);
-    this.postService.selectAllPostInfinitScrool( this.posts[this.posts.length - 1])
-    .subscribe((result)=>{
+  public onScroll() {
 
-        if(result.length > 0){
+    this.postService.selectAllPostInfinitScrool(this.posts[this.posts.length - 1])
+      .subscribe((result) => {
+
+        if (result.length > 0) {
           this.posts = [...this.posts, ...result]
           console.log(this.posts)
-        }else{
+        } else {
           this.notResults = true;
         }
-  
-        this.loading = false;
-  
 
-      
-    })
-    this.loading = false;
+      })
+
   }
 
 }

@@ -10,8 +10,6 @@ import { AngularFireDatabase } from '@angular/fire/compat/database';
 })
 export class PostService {
 
-  
-
   constructor(private fireStorage:AngularFirestore, private db:AngularFireDatabase) { }
 
   public insertPost(post:Post){
@@ -71,5 +69,7 @@ export class PostService {
  public update(post:Post){
     return this.fireStorage.doc(`posts/${post.id}`).update(post);
  }
+
+
 
 }

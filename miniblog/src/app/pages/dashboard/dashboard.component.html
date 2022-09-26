@@ -18,10 +18,6 @@
                 <td colspan="3">{{post.title}}</td>
                 <td class="td-actions">
 
-                    <div class="spinner-border text-primary" role="status" *ngIf="loading">
-                        <span class="visually-hidden">Loading...</span>
-                    </div>
-
                     <button type="button" class="btn btn-info" [disabled]="loading" (click)="readPost(post.id)">Ver</button>
                     <button type="button" class="btn btn-primary" [disabled]="loading" (click)="editar(post.id)">Editar</button>
                     <button type="button" class="btn btn-danger" [disabled]="loading" (click)="delete(post.id)">Excluir</button>
