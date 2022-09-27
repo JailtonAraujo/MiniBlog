@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Post } from 'src/app/interfaces/post';
 import { MessageService } from 'src/app/services/message.service';
 import { PostService } from 'src/app/services/post.service';
@@ -18,6 +19,7 @@ export class HomeComponent implements OnInit {
   }
 
   notResults: Boolean = false;
+  loading:Boolean = false;
 
   constructor(private postService: PostService,
     private messageService: MessageService,
@@ -27,7 +29,6 @@ export class HomeComponent implements OnInit {
     this.postService.selectAllPost().subscribe((result) => {
       this.posts = result;
     })
-
 
   }
 
@@ -49,20 +50,43 @@ export class HomeComponent implements OnInit {
 
   
 
-  public onScroll() {
+  async onScroll() {
 
-    this.postService.selectAllPostInfinitScrool(this.posts[this.posts.length - 1])
+    if(!this.searchName.name){
+      this.loading = true;
+
+      this.postService.selectAllPostInfinitScrool(this.posts[this.posts.length - 1])
       .subscribe((result) => {
 
         if (result.length > 0) {
           this.posts = [...this.posts, ...result]
-          console.log(this.posts)
+        
         } else {
           this.notResults = true;
         }
 
       })
 
+    }else{
+      this.loading = true;
+    this.postService.findPostByTagInfiteScrool(this.searchName.name,this.posts[this.posts.length - 1]).subscribe((result)=>{
+        this.loading = false;
+        if(result.length > 0){
+          this.posts = [...this.posts, ...result];
+        }else{
+          this.notResults = true;
+        }
+
+      })
+      
+    }
+    this.loading = false;
+    
+
+    }
+
+   
+
   }
 
-}
+

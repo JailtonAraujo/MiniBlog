@@ -26,13 +26,13 @@ export class NewPostComponent implements OnInit {
    this.user = this.userService.getUserLogado();
   }
 
-  handlerPost(post:Post){
+  async handlerPost(post:Post){
       let tags = post.tags.toString().split(",");
 
       this.post = {...post, uid:this.user.uid ,createdBy:this.user.displayName, createdAt:new Date(), tags:tags}
 
       this.loading = true;
-      this.postService.insertPost(this.post)
+      await this.postService.insertPost(this.post)
       .then((result)=>{
         this.messageService.addMessage('alert-success','Post criado com sucesso!');
         this.loading = false;

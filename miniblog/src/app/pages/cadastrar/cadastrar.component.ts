@@ -39,10 +39,12 @@ export class CadastrarComponent implements OnInit {
 
     this.loading = true;
 
-    this.userService.newUser(this.formUSer.value)
+    await this.userService.newUser(this.formUSer.value)
     .then((userCredential)=>{
       userCredential.user?.updateProfile({displayName:this.formUSer.get('name')?.value}).then((resp)=>{})
-      this.userService.addUserInLocal(userCredential.user);//add user in localStorage and chenge behaviorSubject to true;
+      let user = {uid:userCredential.user?.uid,displayName:this.formUSer.get('name')?.value} as User//building new user with after update displayName
+
+      this.userService.addUserInLocal(user);//add user in localStorage and chenge behaviorSubject userLogado to true;
       this.router.navigate(['/dashboard']);
       this.loading = false;
     }).catch((error)=>{

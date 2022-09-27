@@ -28,11 +28,11 @@ export class EditPostComponent implements OnInit {
     })
   }
 
-  public update(post:Post){
+ async update(post:Post){
     this.loading = true;
     let tags = post.tags.toString().split(",")
     post = {...post,uid:this.post.uid,id:this.post.id,tags:tags}
-    this.postService.update(post)
+    await this.postService.update(post)
     .then((result)=>{
       this.loading = false;
       this.messageService.addMessage('alert-success','Post atualizado com sucesso!');

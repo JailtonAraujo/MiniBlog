@@ -39,7 +39,7 @@ export class PostService {
 
   public selectAllPostsByUid(uid:String){
    return this.fireStorage.collection('posts', ref =>{
-    return ref.where('uid','==',uid)
+    return ref.where('uid','==',uid).orderBy('createdAt','desc')
    }).snapshotChanges().pipe(map(actions => actions.map(a =>{
     const data = a.payload.doc.data() as Post;
     const id = a.payload.doc.id;
@@ -49,8 +49,22 @@ export class PostService {
 
   public findPostByTag(tag:String){
     return this.fireStorage.collection('posts', ref =>{
-      return ref.where('tags','array-contains',tag)
-    }).valueChanges();
+      return ref.where('tags','array-contains',tag).orderBy('createdAt','desc').limit(5)
+    }).snapshotChanges().pipe(map(actions => actions.map(a =>{
+      const data = a.payload.doc.data() as Post;
+      const id = a.payload.doc.id;
+      return {id:id, ...data}
+    })))
+  }
+
+  findPostByTagInfiteScrool(tag:String,postRef:Post){
+    return this.fireStorage.collection('posts',ref => {
+      return ref.where('tags','array-contains',tag).orderBy('createdAt','desc').startAfter(postRef.createdAt).limit(2);
+    }).snapshotChanges().pipe(map(actions => actions.map(a=>{
+      const data = a.payload.doc.data() as Post;
+      const id = a.payload.doc.id;
+      return {id:id, ...data}
+    })))  
   }
 
  public deletePost(id:string){
