@@ -1,2 +1,2 @@
 # MiniBlog
-Projeto miniblob utilizando angular e firebase
+Project MiniBlod Made with angular 13, Firebase and Bootstrap 5.
